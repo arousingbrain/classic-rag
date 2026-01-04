@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Knowledge RAG</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="glass-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <span>RAG AI</span>
+            </div>
+            
+            <div class="upload-section">
+                <h3>Knowledge Ingestion</h3>
+                <div id="drop-zone" class="drop-zone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drop PDF or TXT files here</p>
+                    <input type="file" id="file-input" hidden multiple accept=".pdf,.txt">
+                    <button id="upload-btn" class="btn secondary">Browse Files</button>
+                </div>
+                <div id="file-list" class="file-list"></div>
+            </div>
+
+            <div class="raw-text-section">
+                <h3>Raw Text Input</h3>
+                <textarea id="raw-text-input" placeholder="Paste your text here..."></textarea>
+                <button id="ingest-text-btn" class="btn primary full-width">
+                    <i class="fas fa-file-import"></i> Ingest Text
+                </button>
+            </div>
+
+            <div class="actions">
+                <button id="clear-db-btn" class="btn danger-outline">
+                    <i class="fas fa-trash-alt"></i> Clear Database
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="chat-main">
+            <header class="chat-header">
+                <h2>Corporate Knowledge Assistant</h2>
+                <span id="connection-status" class="status-badge pulse">Online</span>
+            </header>
+
+            <div id="chat-messages" class="chat-messages">
+                <div class="message assistant">
+                    <div class="message-content">
+                        Hello! I am your Corporate Knowledge Assistant. You can upload documents on the left and ask me questions about them here.
+                    </div>
+                </div>
+            </div>
+
+            <footer class="chat-input-area">
+                <form id="chat-form">
+                    <input type="text" id="user-input" placeholder="Type your question here..." autocomplete="off">
+                    <button type="submit" id="send-btn" class="btn primary">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </footer>
+        </main>
+    </div>
+    <script src="/static/app.js"></script>
+</body>
+</html>
