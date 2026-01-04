@@ -1,6 +1,16 @@
 # Classic RAG
 
-A Retrieval-Augmented Generation (RAG) system with a FastAPI backend and a built-in UI for querying a knowledge base.
+A professional-grade Retrieval-Augmented Generation (RAG) system built with scalability and maintainability in mind.
+
+## Professional Implementation vs. Demo
+
+Unlike a typical "first-timer" RAG (which often bundles all logic inside a single Jupyter notebook or FastAPI route), this project follows enterprise-grade practices:
+
+- **Hexagonal Architecture**: Business logic is isolated in the `core` layer, protected by **Ports** (interfaces). Concrete **Adapters** (OpenAI, ChromaDB) are injected at runtime, making the system 100% swappable and testable.
+- **Dependency Injection**: Services are not hardcoded; they are managed through a proper DI layer, ensuring clean lifecycle management and easy mocking for tests.
+- **Production-Ready Observability**: Uses `structlog` for machine-readable logging and custom middleware to track API health and performance metrics.
+- **Strict Domain Modeling**: Core domain objects (`DocumentChunk`, `LLMResponse`) ensure type safety across the entire pipeline, preventing the "blind dictionary passing" common in a basic demo codebases.
+- **Modern Tooling**: Managed by `uv` for lightning-fast, reproducible builds and deterministic dependency resolution.
 
 ## Features
 
