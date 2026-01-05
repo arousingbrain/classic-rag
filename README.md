@@ -4,13 +4,10 @@ A professional-grade Retrieval-Augmented Generation (RAG) system built with scal
 
 ## Professional Implementation vs. Demo
 
-Unlike a typical "first-timer" RAG (which often bundles all logic inside a single Jupyter notebook or FastAPI route), this project follows enterprise-grade practices:
+Unlike a typical "first-timer" RAG demo, this project follows enterprise-grade practices like **Hexagonal Architecture**, **Dependency Injection**, and **Strict Domain Modeling**.
 
-- **Hexagonal Architecture**: Business logic is isolated in the `core` layer, protected by **Ports** (interfaces). Concrete **Adapters** (OpenAI, ChromaDB) are injected at runtime, making the system 100% swappable and testable.
-- **Dependency Injection**: Services are not hardcoded; they are managed through a proper DI layer, ensuring clean lifecycle management and easy mocking for tests.
-- **Production-Ready Observability**: Uses `structlog` for machine-readable logging and custom middleware to track API health and performance metrics.
-- **Strict Domain Modeling**: Core domain objects (`DocumentChunk`, `LLMResponse`) ensure type safety across the entire pipeline, preventing the "blind dictionary passing" common in a basic demo codebases.
-- **Modern Tooling**: Managed by `uv` for lightning-fast, reproducible builds and deterministic dependency resolution.
+> [!TIP]
+> **Curious about the internal design?** Check out the [Architecture Documentation](docs/architecture.md), [API Reference](docs/api.md), and [Development Guide](docs/development.md) in `/docs` for a deep dive.
 
 ## Features
 
@@ -174,7 +171,8 @@ While Vector Search is the core of this project, production RAG systems often us
 
 ## Project Structure
 
-- `src/api`: FastAPI application and static UI files.
-- `src/core`: Domain logic and RAG service orchestration.
-- `src/ports`: Interface definitions for storage, LLM, and document processing.
-- `src/adapters`: Concrete implementations (ChromaDB, OpenAI, etc.).
+- `docs/`: Detailed design, [Architecture](docs/architecture.md), [API Reference](docs/api.md), and [Development Guide](docs/development.md).
+- `src/api/`: FastAPI application and static UI files.
+- `src/core/`: Domain logic and RAG service orchestration.
+- `src/ports/`: Interface definitions for storage, LLM, and document processing.
+- `src/adapters/`: Concrete implementations (ChromaDB, OpenAI, etc.).
