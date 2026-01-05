@@ -55,3 +55,29 @@ def get_rag_service(
 - **Testability**: We can easily replace real adapters with mocks for unit testing the core logic.
 - **Flexibility**: Swapping out ChromaDB for Pinecone or OpenAI for Anthropic only requires writing a new Adapter—the Core logic remains unchanged.
 - **Clean Code**: Dependencies are explicit, making the system easier to reason about.
+
+---
+
+## Resiliency & Error Handling
+
+The application is designed for enterprise-grade reliability, focusing on structured observability and failure recovery.
+
+### 1. Reactive Resilience (Retries)
+Instead of proactive "connectivity pings," the application uses a reactive pattern for external services (e.g., OpenAI).
+- **Mechanism**: We use the `tenacity` library to wrap external calls with **exponential backoff retries**.
+- **Rationale**: This handles transient network issues and rate limiting gracefully without failing the user request immediately.
+- **Example**: See `src/adapters/openai_adapter.py`.
+
+### 2. Exception Wrapping & Isolation
+To prevent implementation details from leaking and to keep the Core decoupled:
+- **Core Exceptions**: Domain-specific exceptions are defined in `src/core/exceptions.py` (e.g., `ExternalServiceError`).
+- **Isolation**: Adapters and services wrap low-level errors (like `openai.RateLimitError`) into these Core exceptions. This ensures the API layer only needs to know about the domain's error language, not the specifics of every vendor.
+
+### 3. Centralized Global Error Mapping
+All exceptions are handled at the edge of the system:
+- **FastAPI Exception Handlers**: In `src/api/errors.py`, we map `AppException` and its subclasses to structured JSON responses.
+- **Security**: A catch-all handler for the generic `Exception` class ensures that unexpected internal tracebacks are logged but never returned to the client.
+
+### 4. Structured Observability
+- **Contextual Logging**: Every request is assigned a unique `X-Request-ID` in `src/api/middleware.py`.
+- **Traceability**: All logs (info, warning, error) are tagged with this ID, allowing developers to trace a single request's journey through the various layers of the architecture.
