@@ -40,18 +40,29 @@ For faster development, you can use `uvicorn` directly:
 uv run uvicorn src.api.main:app --reload
 ```
 
-## Verification & Testing
+## Running Tests
 
-### Verification Script
-We have a handy script to verify the RAG flow:
+We use `pytest` for automated testing.
+
+### Run All Tests
 ```bash
-uv run python verify_rag.py
+PYTHONPATH=. uv run pytest
 ```
 
-### Future testing
-Unit tests are located in `tests/` (to be implemented). You can run them using:
+### Run Specific Test Suites
 ```bash
-uv run pytest
+# Unit tests only
+PYTHONPATH=. uv run pytest tests/unit
+
+# Integration tests only
+PYTHONPATH=. uv run pytest tests/integration
+```
+
+### Test Coverage (Optional)
+If you want to see coverage results, you can install `pytest-cov`:
+```bash
+uv add --dev pytest-cov
+PYTHONPATH=. uv run pytest --cov=src
 ```
 
 ## Contributing

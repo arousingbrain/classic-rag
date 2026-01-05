@@ -167,7 +167,14 @@ While Vector Search is the core of this project, production RAG systems often us
     ```bash
     uv run python main.py
     ```
-    Access the UI at `http://localhost:8000/static/index.html`.
+
+4.  **Running Tests**:
+    Verify the installation by running the test suite:
+    ```bash
+    PYTHONPATH=. uv run pytest
+    ```
+
+Access the UI at `http://localhost:8000/static/index.html`.
 
 ## Project Structure
 
